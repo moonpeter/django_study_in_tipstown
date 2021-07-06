@@ -1,0 +1,1 @@
+# django_study_in_tipstown

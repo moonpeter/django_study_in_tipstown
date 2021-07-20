@@ -1,14 +1,27 @@
 # Ch02. 최적화된 장고 환경 설정하기
+- These are good to have in your tool chest, since they are commonly used not just in Django, but in the majority of Python software development. 
 
 
 
 ### 2.1 같은 데이터베이스를 이용하라.
 
+
 2.1.1 운영 데이터를 완전히 똑같이 로컬에서 구동할 수는 없다.
 
 2.1.2 다른 종류의 데이터베이스 사이에는 다른 성격의 필드 타입과 제약 조건이 존재한다.
 
-2.1.3 Fixtures 는 만등 해결책이 아니다.
+Keep in mind that different databases handle type casting of field data differently. 
+cf) 
+- type casting vs type hinting
+- https://stackoverflow.com/questions/41046640/type-hinting-vs-type-casting-in-setters-php (php의 경우지만, python에서도 큰 맥락은 같은 듯)
+- type hinting
+- mypy, dataclass, pydantic
+- python 3.10(type annotations)
+- https://dev.to/iamdeb25/python-type-annotations-141n
+- https://stackoverflow.com/questions/42397502/how-to-use-python-type-hints-with-django-queryset
+
+
+2.1.3 Fixtures 는 만능 해결책이 아니다.
 
 - Fixtures는 단순히 하드 코딩된 간단한 데이터 세트를 생성하는데 좋은 도구
 
@@ -54,6 +67,7 @@
   - 개발자 간의 설정 차이
 
 2.5.1 Docker
+https://www.44bits.io/ko/post/almost-perfect-development-environment-with-docker-and-docker-compose
 
 - 장점
   - 프로젝트 내 모든 개발자가 동일한 개발환경 설정 가능

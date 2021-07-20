@@ -25,6 +25,7 @@
 - PEP 8은 파이썬 공식 스타일 가이드 입니다.
   - 장고 프로젝트의 모든 파이썬 파일은 PEP 8 를 따라야 합니다.
 - 파이썬 코드 폼펙터 "Black"을 사용하세요
+- https://wayhome25.github.io/python/2017/05/04/pep8/
 - Flake8를 사용하세요
   - 코딩 스타일, 퀄리티, 로직 에러를 확인하는 commend-line tool
 - 1.2.1 79자 제한
@@ -57,11 +58,11 @@
 
   현재의 앱의 다른 모듈에서 임포트해서 이용할 때 : 명시적 상대 경로 임포트
 
-  ⇒ ex) from .models import WaffleCone\
+  ⇒ ex) from .models import WaffleCone
 
 
 
-### 1.5 "Import *" 사용을 피하세요
+### 1.5 "Import *" 사용을 피하세요 (Anti 패턴)
 
 - 이것은 예측불가능하고 치명적인 결과를 초래할 수 있다.
 

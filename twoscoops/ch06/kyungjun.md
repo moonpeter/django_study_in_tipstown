@@ -178,11 +178,7 @@ class MyModel(models.Model):
 
 작업중
 
-
-
-
-## 6.4 장고 모델 디자인 
-#### 마이그레이션의 배포와 관리 
+### 6.3.4 마이그레이션의 배포와 관리 
 
 - 배포 전 rollback 할 수 있는지 확인하자.
 - 테이블에 수백만 개의 데이터가 존재한다면 스테이징 서버에서 비슷한 크기의 데이터에 대해 충분히 테스트하자.
@@ -199,21 +195,23 @@ class MyModel(models.Model):
 
 이미 모델에 포함된 데이터들이 중복되어 다시 다른 모델에 포함되지 않도록 한다.
 
-### 6.2.2 캐시와 비정규화 
-`24장 장고 성능 향상시키기`에서 자세히 다룬다.
+### 6.4.2 캐시와 비정규화 
+`26장 병목을 발견하고 줄이기`에서 자세히 다룬다.
 
-### 6.2.3 반드시 필요한 경우에만 비정규화를 하도록 하자 
-`24장 장고 성능 향상시키기`에서 제시한 방법들로도 해결할 수 없을 때 비정규화에 대해 고민해도 늦지않다.
+### 6.4.3 반드시 필요한 경우에만 비정규화를 하도록 하자
+비정규화 전에 캐싱을 탐색해라
+`26장 병목을 발견하고 줄이기`에서 제시한 방법들로도 해결할 수 없을 때 비정규화에 대해 고민해도 늦지않다.
 
-### 6.2.4 언제 널을 쓰고 언제 공백을 쓸 것인가 
-모델 필드 인자들에 대한 가이드 참고하기
+### 6.4.4 When to Use Null and Blank
+기본 설정은 둘다 "False" 임
 
+[확인필요] #인용자료 
 - django 표준은 빈 값(empty value)을 빈 문자열(empty string)로 저장한다.  
 - BooleanField의 경우 NullBooleanField를 사용한다. 
-
 > IPAddressField 대신 GenericIPAddressField를 사용하자.
 
-### 6.2.5 언제 BinaryField를 이용할 것인가? 
+
+### 6.4.5 언제 BinaryField를 이용할 것인가? 
 #### BinaryField
 - raw binary data 또는 byte를 저장하는 필드
 - filter, exclude, 기타 SQL 액션들이 적용되지 않음
@@ -221,7 +219,7 @@ class MyModel(models.Model):
 #### Using
 - 메시지팩 형식의 콘텐츠
 - 원본 센서 데이터
-- 압축된 데이터
+- 압축된 데이터 (e.g. the type of data Sentry stores as a BLOB, but is required to base64-encode due to legacy issues)
 
 바이너리 데이터는 크기가 방대할 수 있고, 이로 인하여 데이터베이스가 느려질 수도 있다.  
 
@@ -231,7 +229,24 @@ class MyModel(models.Model):
 > - 데이터베이스 백업에 드는 공간과 시간이 점점 증가하게 된다.
 > - 파일 자체에 접근하는 데 앱 레이어와 데이터베이스 레이어 둘 다 거쳐야한다.
 
-### 6.2.6 범용 관계 피하기  
+- [데이터베이스에 절대로 넣으면 안되는 3가지](https://www.revsys.com/tidbits/three-things-you-should-never-put-your-database/)
+
+
+### Table 6.2: When to Use Nuall and Blank by Field
+
+| Field Type | Setting null=True | Setting blank=True |
+| CharField, TextField, SlugField, EmailField, CommaSeperatedIntegerField, UUIDField | 만약 "unique=True", "blank=True" 인 경우에는 사용 가능, blank value를 가진 objects를 저장할때 "null=True"는 고유의 제한적인 위반을 피하도록 요구되어짐 | 빈 값(empty value)이 데이터베이스에 "NULL"로 저장하면 "null=True", "unique=True" 또한 설정됨. 만약 그렇게 하지 않으면, 빈 값(empty value)을 빈 문자열(empty string)로 저장한다.|
+| FileField, ImageField | 안쓴다. 장고는 MEDIA_ROOT의 경로를 CharField에 파일 또는 이미지로 저장한다. 같은 패턴이 FileField에도 적용됨. | 쓴다. CharField에 적용된 것과 같은 규칙 적용 | # 이 부분 무슨말인지 모르겟음
+| BooleanField | 쓴다 | Default is blank=True 다 |
+| IntegerField, FloatField, DecimalField, DurationField | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값을 받아와도 문제가 없다면 이용. null=True랑 같이 이용. |
+| DateTimeField, DateField, TimeField 등 | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값 받아와도 문제없다거나 auto_now나 auto_now_add를 이용하고 있다면 이용한다. 전자의 경우 null=True 역시 원한다. |
+| ForeignKey, OneToOneField | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값 받아와도(e.g. 셀렉트박스) 문제없다면 괜춘, 그럴 경우 null=True 역시 원한다 |
+| ManyToManyField | 안쓴다. 아무런 영향이 없음 | 쓴다. 위젯에서 해당 값이 빈 값 받아와도(e.g. 셀렉트박스) 문제없다면 괜춘 |
+| GenericIPAddressField | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값 받아와도 문제없다면 이용 |
+| JSON Field | Okay | Okay |
+
+
+### 6.4.6 범용 관계 피하기  
 #### 범용 관계
 한 테이블로부터 다른 테이블을 서로 `제약 조건 없는 외부 키 (unconstrained foreign key, GenericForeignKey)`로 바인딩 하는 것.
 
@@ -250,16 +265,37 @@ class MyModel(models.Model):
 - 범용 관계가 필요하다면, 모델 디자인을 바꾸거나 새로운 PostgreSQL 필드로 해결할 수 있는지 확인한다.
 - 불가피한 경우 서드 파티 앱을 고려해보자.
 
-### 6.2.7 PostgreSQL에만 존재하는 필드에 대해 언제 널을 쓰고 언제 공백을 쓸 것인가 
-가이드 참고
+- [Another view about our opinion](https://lukeplant.me.uk/blog/posts/avoid-django-genericforeignkey/)
 
-## 6.3 모델의 \_meta API 
+### 6.4.7 Make Choices and Sub-Choices Model Constants
+- 사용법 소개. 파이썬 코드, 템플릿에서 사용 가능하고, 속성은 클래스, 인스턴스화된 모델 객체에서도 접근 가능
+
+### 6.4.8 Make Choices and Sub-Choices Model Constants 
+- 장고 3.0 부터는 TextChoices 가 내장되어 있어서 6.4.7이 더욱 간편해짐
+(cf) Class Enum 
+https://www.daleseo.com/python-enum/
+[한계]
+- categories inside ourchoice -> older tuple-based 접근 필요
+- str, int 타입외에는 직접 지정
+
+
+### 6.4.9 PostgreSQL에만 존재하는 필드에 대해 언제 널을 쓰고 언제 공백을 쓸 것인가
+| Field Type | Setting null=True | Setting blank=True |
+| ArrayField | 쓴다 | 쓴다 |
+| HStoreField | 쓴다 | 쓴다 |
+| IntegerRangeField, BigIntegerRangeField, and FloatRangeField | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값 받아와도(e.g. 셀렉트박스) 문제없다면 괜춘, 그럴 경우 null=True 역시 원한다 |
+| DatetimeRangeField and DAteRangeField | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값 받아와도 문제없다거나 auto_now나 auto_now_add를 이용하고 있다면 이용한다. 만약 그렇다면 null=True 역시 원한다. | 
+
+## 6.5 모델의 \_meta API 
 
 `_meta` 의 원래 목적: 모델에 대한 부가적인 정보를 장고 내부적으로 이용하는 것   
 
+cf) 처음에 이것과 관련이 있는 줄 알았음
+https://hckcksrl.medium.com/python-property-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-89eb0f0e2e56
+
 ##### 다음과 같은 이유로 사용한다
 
-- 모델 필드의 리스트를 가져올 때
+- 모델 필드의 리스트를 가져올 때 // (경험 공유) admin list_display에서 활용해봄
 - 모델의 특정 필드의 클래스를 가져올 때
 - 앞으로 장고 버전들에서 이와 같은 정보를 어떻게 가져오게 되었는지 확실하게 상수로 남기기를 원할 때
 
@@ -273,8 +309,9 @@ class MyModel(models.Model):
 [모델 _meta 문서](http://docs.djangoproject.com/en/1.8/ref/models/meta/)  
 [모델 _meta 에 대한 장고 1.8 릴리스 노트](https://docs.djangoproject.com/en/1.8/releases/1.8/#model-meta-api)
 
+admin에서 max_length 확인 가능함
 
-## 6.4 모델 매니저 
+## 6.6 모델 매니저 
 모델에 질의하면 장고의 ORM을 통한다. 이 때 모델 매니저를 호출하게 된다.
 
 ### model manager
@@ -314,6 +351,14 @@ class FlavorReview(models.Model):
 31
 ```
 
+```python
+>>> from reviews.models import FlavorReview
+>>> FlavorReview.objects.filter().count()
+35
+>>> FlavorReview.published().filter().count()
+31
+```
+
 ### 기존 모델 매니저를 교체할 때 주의할 것
 - 모델을 상속받아 이용 시 추상화 기초 클래스의 자식들은 부모 모델의 매니저를 받고, 접합 기반 클래스의 자식들은 부모 모델의 매니저를 받지 못한다.
 - 모델 클래스에 적용되는 첫 번째 매니저는 장고가 기본값으로 취급하는 매니저이다. 기존 모델 매니저를 커스텀 모델 매니저로 교체하면, 커스텀 모델 매니저를 기본값으로 취급한다. 때문에 커스텀 모델 매니저에서 queryset 작업을 재정의하면 결과를 예상할 수 없는 상황을 만날 수도 있다. 
@@ -324,13 +369,20 @@ class FlavorReview(models.Model):
 [Mangers 에 대한 Django document](https://docs.djangoproject.com/en/1.11/topics/db/managers/)
 
 
-## 6.5 거대 모델 이해하기 
+## 6.7 거대 모델 이해하기
 
 ### 거대 모델 (fat model)
 
-**코드 재사용을 개선할 수 있는 최고의 방법**  
-데이터 관련 코드를 모델 메서드, 클래스 메서드, 프로퍼티, 매니저 메서드 안에 넣어 캡슐화 하는 것.
+**코드 재사용을 개선할 수 있는 최고의 방법**  정말 맞을까?
+데이터 관련 코드를 model methods, classmethods, properties, manager methods 안에 넣어 캡슐화 하는 것.
 
+메서드 예
+```python
+Review.create_view(cls, user, rating, title, description) # 리뷰를 생성하는 클래스 메서드. HTML과 REST 뷰에서 호출되는 모델 클래스, 스프레드시트를 처리하는 임포트 도구에서 호출 (무슨 말인지 모르겠음)
+review.product_average #리뷰된 프로젝트의 평균 점수를 반환하는 리뷰 인스턴스 속성.
+review.found_useful(self, user, yes): # 해당 리뷰가 유용했는지 아닌지 사용자가 기록할 수 있는 메서드.
+```
+cf)[self vs cls](https://firework-ham.tistory.com/101)
 ##### 문제점
 - 모델 코드의 크기를 신의 객체(god object) 수준으로 증가시킨다.
 - 복잡해지므로 코드의 이해, 테스트 또는 유지보수에 어려움을 겪게 된다.
@@ -338,36 +390,44 @@ class FlavorReview(models.Model):
 > 모델의 크기가 너무 커지면, 코드를 분리한다.    
 > 메서드, 클래스 메서드, 프로퍼티들을 유지하고 해당 로직을 모델 행동(model behavior) 또는 상태 없는 헬퍼 함수(stateless helper function)으로 이전.
 
-### 6.5.1 모델 행동(믹스인) 
+### 6.7.1 모델 행동(믹스인) 
 모델 행동은 믹스인을 통한 캡슐화와 구성화의 개념으로 이루어져 있다.   
 모델은 추상화 모델로부터 로직들을 상속받는다.
 
 - [코드 중복을 막는 작성법 - kevin Stone](http://blog.kevinastone.com/django-model-behaviors.html)
-- [한글판](http://jellyms.kr/808)
-- 10.2 클래스 기반 뷰와 믹스인 이용하기
+> `10.2 Using Mixins With CBVs`를 참고
 
-### 6.5.2 상태 없는 헬퍼 함수 
+### 6.7.2 상태 없는 헬퍼 함수 
 - 로직을 유틸리티 함수로 작성하면 독립적 구성이 가능
 - 로직에 대한 테스트가 쉬워짐
 - stateless 이므로 함수에 더 많은 인자를 필요로 하게 된다.
+cf)[Stateless vs StateFul](https://5equal0.tistory.com/entry/StatefulStateless-Stateful-vs-Stateless-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%99%80-HTTP-%EB%B0%8F-REST)
 
-> `29장 유틸리티들에 대해`를 참고
+> `31장 유틸리티들에 대해`를 참고
 
-### 6.5.3 모델 행동과 헬퍼 함수 
+### 6.7.3 모델 행동과 헬퍼 함수 
 완벽하진 않지만 적절히 사용한다면 도움이 된다.
 
-## 6.6 요약 
 
-- 모델은 신중하게 디자인하자
-- 다른 선택지를 충분히 고려 후 방법이 없을 경우에 비정규화를 고려하자
-- 인덱스를 사용하자
-- 상속은 접합 모델(concrete model)이 아닌 추상화 기초 클래스로 부터 상속하자
+## 6.8 보충 자료
+- [Haki Benita's excellent article](https://hakibenita.com/bullet-proofing-django-models)
+- [Performance of model design](https://spellbookpress.com/books/temple-of-django-database-performance/)
+
+## 6.9 요약 
+
+- 모델은 장고의 기반이다. 철저하게 디자인하자
+- 기본적으로 정규화로 시작, 다른 선택지를 충분히 고려 후 방법이 없을 경우에 비정규화를 고려하자,
+- 복잡하고 느린 query들은 raw SQL로 변환하여 분석하자
+- 캐싱을 적절한 장소에 활용하자
+- 상속은 concrete model 이 아닌 추상화 기초 클래스로 부터 상속하자(불필요한 join으로부터 벗어나자)
 - null=True, blank=True 옵션은 가이드라인을 참고
 - 거대 모델은 모델 전부를 신의 객체가 될 위험도 있다.
-
+cf) "gotchas" 뜻 : https://www.geeksforgeeks.org/gotchas-in-python/
 
 # 스터디 이후 질문사항
 
 https://velog.io/@dltngks54/Django-request.GET.get-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC-%ED%82%A4%EA%B0%92-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0
 
 request.GET.get ('next', 30) 왜 이렇게 쓰는지
+request.GET.get ('next', None) 왜 이렇게 쓰는지
+request.GET['key값'] => 에러 발생

@@ -208,6 +208,12 @@ class MyModel(models.Model):
 [확인필요] #인용자료 
 - django 표준은 빈 값(empty value)을 빈 문자열(empty string)로 저장한다.  
 - BooleanField의 경우 NullBooleanField를 사용한다. 
+
+Deprecated since version 3.1:
+NullBooleanField is deprecated in favor of BooleanField(null=True).
+
+
+
 > IPAddressField 대신 GenericIPAddressField를 사용하자.
 
 

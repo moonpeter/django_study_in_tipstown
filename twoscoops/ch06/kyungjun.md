@@ -235,6 +235,7 @@ class MyModel(models.Model):
 ### Table 6.2: When to Use Nuall and Blank by Field
 
 | Field Type | Setting null=True | Setting blank=True |
+|:---:|:---:|:---:|
 | CharField, TextField, SlugField, EmailField, CommaSeperatedIntegerField, UUIDField | 만약 "unique=True", "blank=True" 인 경우에는 사용 가능, blank value를 가진 objects를 저장할때 "null=True"는 고유의 제한적인 위반을 피하도록 요구되어짐 | 빈 값(empty value)이 데이터베이스에 "NULL"로 저장하면 "null=True", "unique=True" 또한 설정됨. 만약 그렇게 하지 않으면, 빈 값(empty value)을 빈 문자열(empty string)로 저장한다.|
 | FileField, ImageField | 안쓴다. 장고는 MEDIA_ROOT의 경로를 CharField에 파일 또는 이미지로 저장한다. 같은 패턴이 FileField에도 적용됨. | 쓴다. CharField에 적용된 것과 같은 규칙 적용 | # 이 부분 무슨말인지 모르겟음
 | BooleanField | 쓴다 | Default is blank=True 다 |
@@ -281,6 +282,7 @@ https://www.daleseo.com/python-enum/
 
 ### 6.4.9 PostgreSQL에만 존재하는 필드에 대해 언제 널을 쓰고 언제 공백을 쓸 것인가
 | Field Type | Setting null=True | Setting blank=True |
+|:---:|:---:|:---:|
 | ArrayField | 쓴다 | 쓴다 |
 | HStoreField | 쓴다 | 쓴다 |
 | IntegerRangeField, BigIntegerRangeField, and FloatRangeField | 해당 값이 DB에 NULL로 들어가도 문제 없다면 이용 | 위젯에서 해당 값이 빈 값 받아와도(e.g. 셀렉트박스) 문제없다면 괜춘, 그럴 경우 null=True 역시 원한다 |
@@ -422,7 +424,7 @@ cf)[Stateless vs StateFul](https://5equal0.tistory.com/entry/StatefulStateless-S
 - 상속은 concrete model 이 아닌 추상화 기초 클래스로 부터 상속하자(불필요한 join으로부터 벗어나자)
 - null=True, blank=True 옵션은 가이드라인을 참고
 - 거대 모델은 모델 전부를 신의 객체가 될 위험도 있다.
-cf) "gotchas" 뜻 : https://www.geeksforgeeks.org/gotchas-in-python/
+cf) "gotchas" 뜻 : https://www.geeksforgeeks.org`/gotchas-in-python/
 
 # 스터디 이후 질문사항
 
@@ -430,4 +432,16 @@ https://velog.io/@dltngks54/Django-request.GET.get-%EB%94%95%EC%85%94%EB%84%88%E
 
 request.GET.get ('next', 30) 왜 이렇게 쓰는지
 request.GET.get ('next', None) 왜 이렇게 쓰는지
+https://stackoverflow.com/questions/6130768/return-none-if-dictionary-key-is-not-available
+default 값을 지정하지 않았을 경우
+https://stackoverflow.com/questions/6130768/return-none-if-dictionary-key-is-not-available
+https://docs.python.org/3/library/stdtypes.html#dict.get
+get(key[, default])¶
+Return the value for key if key is in the dictionary, else default. If default is not given, it defaults to None, so that this method never raises a KeyError.
+
+
+
 request.GET['key값'] => 에러 발생
+딕셔너리 안에 찾으려는 Key 값이 없을 경우 미리 정해 둔 디폴트 값을 대신 가져오게 하고 싶을 때에는 get(x, '디폴트 값')을 사용하면 편리하다.
+https://wikidocs.net/16#key-value-items
+

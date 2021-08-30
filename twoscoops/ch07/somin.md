@@ -24,19 +24,22 @@ ex) except Flavor.MultipleObjectsReturned:
 # 7.3 쿼리를 알아볼 수 있게 하기 위해 게으른(?) 평가를 사용하라
 [x이렇게 하지 마세요x]
 
+~~~
 def ex_function(name=None):
     return Promo.objects.active()
     .filter(Q(name="테스트")|Q(description__icontains=name))
-
+~~~
 
 [o이렇게 하세요o]
 
+~~~
 def ex_function(name=None):
     results = Promo.objects.active()
     results = results.filter(Q(name="테스트")|Q(description__icontains=name))
     results = results.exclude(status='melted')
     results = results.select_related('flavors')
     return results
+~~~
 
 1. 게으른(?) 평가에 따르면 장고 ORM은 우리가 실제로 데이터를 사용하지 않을때까지 SQL을 콜하지 않는다.
 2. 우리가 사용하고자하는 메서드와 기능들을 여러 줄로 나누면 가독성이 향상되고, 관리의 용이성을 높일 수 있다.
@@ -49,13 +52,17 @@ def ex_function(name=None):
 - python을 사용하여 db의 모든 레코드를 하나씩 루프하게 되면 느리고, 메모리도 소모하게 된다.
 
 [x 이렇게 하지마세요 x]
+~~~
 customers = []
 for customer in Customer.objects.iterator():
     if customer.scoops_ordered > customer.store_visits:
         customers.append(customer)
+~~~
 
 [o 이렇게 하세요 o]
+~~~
 customers = Customer.objects.filter(scoops_ordered__gt=F('store_visits'))
+~~~
 
 ## 7.4.2 DB Functions
 upper()
@@ -106,13 +113,14 @@ substr()
 - 만약 하나의 업데이트가 실패하면 트랜잭션의 모든 업데이트가 롤백된다.
 
 ## 7.7.1 Wrapping Each HTTP Request in a Transaction
+~~~
 DATABASES = {
     'default': {
     # ...
     'ATOMIC_REQUESTS': True,
     },
 }
-
+~~~
 - 위의 처럼 설정을 해주면 모든 요청이 래핑된다.
 - 모든 데이터베이스 쿼리가 보호되므로 성능이 저하되는 단점이 있다.
 - ATOMIC_REQUESTS를 사용하면 에러가 있을시 데이터베이스 상태가 롤백된다.

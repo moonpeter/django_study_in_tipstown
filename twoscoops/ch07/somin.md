@@ -19,12 +19,23 @@
 1. 이경우 MultipleObjectsReturned 예외를 확인하라
 ex) except Flavor.MultipleObjectsReturned:
         예외발생시 수행할 코드
+~~~
+def list_flavor_line_item(sku):
+    try:
+        return Flavor.objects.get(sku=sku, quantity__gt=0)
+    except Flavor.DoseNotExist:
+        msg = 'We are out of {}'.format(sku)
+        raise OutOfStock(msg)
+    except Flavor.MultipleObjectsReturned:
+        msg = 'Multiple items have SKU {}. Please fix!'.format(sku)
+        raise CorruptedDatabase(msg)
+~~~
 
-
-# 7.3 쿼리를 알아볼 수 있게 하기 위해 게으른(?) 평가를 사용하라
+# 7.3 쿼리를 알아볼 수 있게 하기 위해 게으른(?) 평가(지연평가)를 사용하라
 [x이렇게 하지 마세요x]
 
 ~~~
+# 쿼리 체이닝이 화면이나 페이지를 넘지 않도록 하는 것이 좋다.
 def ex_function(name=None):
     return Promo.objects.active()
     .filter(Q(name="테스트")|Q(description__icontains=name))
@@ -45,6 +56,9 @@ def ex_function(name=None):
 2. 우리가 사용하고자하는 메서드와 기능들을 여러 줄로 나누면 가독성이 향상되고, 관리의 용이성을 높일 수 있다.
 
 ## 7.3.1 가독성을 위한 쿼리
+
+- PDB(Python Debugger) => python 표준 라이브러리, 대화형 디버거
+- IPDB(IPython-enabled Python Debugger
 
 # 7.4 발전된 쿼리 툴을 사용
 - python으로 데이터를 관리하는 대신 Django의 쿼리 툴을 사용하자

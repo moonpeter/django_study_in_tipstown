@@ -9,6 +9,8 @@
 1. 디테일 페이지 같은 view에서는 get()대신 get_object_or_404()를 사용하라
 2. views에서만 사용하라
 
+=> 도경님 : api 서버 작성시에는 오류를 날 가능성이 있으니 주의하자! (확인필요)
+
 # 7.2 예외가 발생가능한 쿼리를 주의하라
 
 ## 7.2.1 ObjectDoesNotExist vs DoesNotExist

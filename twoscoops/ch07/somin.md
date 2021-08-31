@@ -36,7 +36,7 @@ def list_flavor_line_item(sku):
 # 7.3 쿼리를 알아볼 수 있게 하기 위해 게으른(?) 평가(지연평가)를 사용하라
 [x이렇게 하지 마세요x]
 
-~~~
+~~~python
 # 쿼리 체이닝이 화면이나 페이지를 넘지 않도록 하는 것이 좋다.
 def ex_function(name=None):
     return Promo.objects.active()
@@ -45,7 +45,7 @@ def ex_function(name=None):
 
 [o이렇게 하세요o]
 
-~~~
+~~~python
 def ex_function(name=None):
     results = Promo.objects.active()
     results = results.filter(Q(name="테스트")|Q(description__icontains=name))
@@ -70,7 +70,7 @@ def ex_function(name=None):
 - python을 사용하여 db의 모든 레코드를 하나씩 루프하게 되면 느리고, 메모리도 소모하게 된다.
 
 [x 이렇게 하지마세요 x]
-~~~
+~~~python
 customers = []
 for customer in Customer.objects.iterator():
     if customer.scoops_ordered > customer.store_visits:
@@ -78,7 +78,7 @@ for customer in Customer.objects.iterator():
 ~~~
 
 [o 이렇게 하세요 o]
-~~~
+~~~python
 customers = Customer.objects.filter(scoops_ordered__gt=F('store_visits'))
 ~~~
 
@@ -149,7 +149,7 @@ MYSQL 설정이 트랜잭션을 지원한다면 앞서 언급한 대로 트랜�
 
 
 ## 7.7.1 Wrapping Each HTTP Request in a Transaction
-~~~
+~~~python
 DATABASES = {
     'default': {
     # ...

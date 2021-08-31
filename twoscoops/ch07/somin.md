@@ -57,7 +57,9 @@ def ex_function(name=None):
 1. 게으른(?) 평가에 따르면 장고 ORM은 우리가 실제로 데이터를 사용하지 않을때까지 SQL을 콜하지 않는다.
 2. 우리가 사용하고자하는 메서드와 기능들을 여러 줄로 나누면 가독성이 향상되고, 관리의 용이성을 높일 수 있다.
 
-## 7.3.1 가독성을 위한 쿼리
+추가적으로 생각해볼 내용 : reverse_lazy
+
+# 7.3.1 가독성을 위한 쿼리
 
 - PDB(Python Debugger) => python 표준 라이브러리, 대화형 디버거
 - IPDB(IPython-enabled Python Debugger
@@ -79,6 +81,15 @@ for customer in Customer.objects.iterator():
 ~~~
 customers = Customer.objects.filter(scoops_ordered__gt=F('store_visits'))
 ~~~
+
+- http://raccoonyy.github.io/using-django-querysets-effectively-translate/
+star_set = Star.objects.all()
+
+# iterator() 메서드는 전체 레코드의 일부씩만 DB에서 가져오므로
+# 메모리를 절약할 수 있다.
+for star in star_set.iterator():
+    print(star.name)
+
 
 ## 7.4.2 DB Functions
 upper()
@@ -127,6 +138,15 @@ substr()
 - 이 손상 위험을 해결하기 위해 데이터베이스 트랜잭션을 사용한다.
 - 데이터베이스 트랜잭션은 두 개 이상의 업데이트가 단일 작업단위에 포함되는 곳이다.
 - 만약 하나의 업데이트가 실패하면 트랜잭션의 모든 업데이트가 롤백된다.
+
+업무에 바로쓰는 SQL 튜닝
+- Storage Engine: 사용자가 요청한 SQL 문을 토대로 DB에 저장된 디스크나 메모리에서 필요한 데이터를 가져오는 역할
+일반적으로 트랜잭션 발생은 데이터를 처리하는 OLTP(online transaction processing) 환경이 대다수인 만큼 주로 InnoDB 엔진을 사용.
+대량의 쓰기 트랜잭션이 발생하면 MyISAM 엔진을 사용.
+메모리 데이터를 로드하여 빠르게 읽는 효과를 내려면 Memory 엔진
+MySQL 설정이 트랜잭션을 지원하지 않으면 Django는 항상 자동 커밋 모드입니다.
+MYSQL 설정이 트랜잭션을 지원한다면 앞서 언급한 대로 트랜잭션을 처리합니다.
+
 
 ## 7.7.1 Wrapping Each HTTP Request in a Transaction
 ~~~

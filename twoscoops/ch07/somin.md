@@ -21,7 +21,7 @@
 1. 이경우 MultipleObjectsReturned 예외를 확인하라
 ex) except Flavor.MultipleObjectsReturned:
         예외발생시 수행할 코드
-~~~
+~~~python
 def list_flavor_line_item(sku):
     try:
         return Flavor.objects.get(sku=sku, quantity__gt=0)

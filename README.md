@@ -37,5 +37,5 @@ https://spoqa.github.io/
 
 2) 스타일쉐어
 
-## 7. Django Style Guid
+## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/

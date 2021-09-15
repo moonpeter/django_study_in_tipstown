@@ -30,6 +30,7 @@ https://blog.nerdfactory.ai/2021/02/24/creating-an-api-&-collecting-html-element
 3) 딜리버리 히어로
 
 4) 번개 장터
+5) https://www.intakefoods.kr/blog/article/141/
 
 
 ## 6. Flask 기술 블로그

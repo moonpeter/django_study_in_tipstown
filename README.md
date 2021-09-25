@@ -28,9 +28,11 @@ https://8percent.github.io/2020-11-29/django-reversed-foreign-keys/
 https://blog.nerdfactory.ai/2021/02/24/creating-an-api-&-collecting-html-elements-with-django-rest-framework.html
 
 3) 딜리버리 히어로
+https://medium.com/deliverytechkorea
 
 4) 번개 장터
-5) https://www.intakefoods.kr/blog/article/141/
+
+6) https://www.intakefoods.kr/blog/article/141/
 
 
 ## 6. Flask 기술 블로그

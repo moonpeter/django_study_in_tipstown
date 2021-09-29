@@ -36,6 +36,8 @@ https://medium.com/deliverytechkorea
 
 7) https://medium.com/towncompany-engineering
 
+8) https://www.revsys.com/tidbits/django-performance-simple-things/
+
 ## 6. Flask 기술 블로그
 1) spoqa
 https://spoqa.github.io/
@@ -44,3 +46,5 @@ https://spoqa.github.io/
 
 ## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
+
+

@@ -34,6 +34,7 @@ https://medium.com/deliverytechkorea
 
 6) https://www.intakefoods.kr/blog/article/141/
 
+7) https://medium.com/towncompany-engineering
 
 ## 6. Flask 기술 블로그
 1) spoqa

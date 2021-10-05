@@ -208,6 +208,12 @@ class MyModel(models.Model):
 [확인필요] #인용자료 
 - django 표준은 빈 값(empty value)을 빈 문자열(empty string)로 저장한다.  
 - BooleanField의 경우 NullBooleanField를 사용한다. 
+
+Deprecated since version 3.1:
+NullBooleanField is deprecated in favor of BooleanField(null=True).
+
+
+
 > IPAddressField 대신 GenericIPAddressField를 사용하자.
 
 
@@ -433,6 +439,7 @@ https://velog.io/@dltngks54/Django-request.GET.get-%EB%94%95%EC%85%94%EB%84%88%E
 
 request.GET.get ('next', 30) 왜 이렇게 쓰는지
 request.GET.get ('next', None) 왜 이렇게 쓰는지
+
 https://stackoverflow.com/questions/6130768/return-none-if-dictionary-key-is-not-available
 default 값을 지정하지 않았을 경우
 https://stackoverflow.com/questions/6130768/return-none-if-dictionary-key-is-not-available
@@ -446,3 +453,4 @@ request.GET['key값'] => 에러 발생
 딕셔너리 안에 찾으려는 Key 값이 없을 경우 미리 정해 둔 디폴트 값을 대신 가져오게 하고 싶을 때에는 get(x, '디폴트 값')을 사용하면 편리하다.
 https://wikidocs.net/16#key-value-items
 
+request.GET['key값'] => 에러 발생

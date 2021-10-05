@@ -1,10 +1,11 @@
 # DSIT (Django_Study_In_Tipstown)
 
 ## 1. 매주 화요일 오후 7시 (장소 : 팁스타운 s6 / 역삼동)
+- 현재는 코로나 거리 두기 단계 4단계 격상으로 인해 google meet활용해 진행하고 있음
 
 ## 2. 발표방식 : 챕터 1 개를 요약해서 발표 진행
 - 진행 시간 분배 : 기본 교재 + (알파 : 각자 코드 리뷰 및 고민 사항)
-- 발표순서 : 경호님 //  경준님 
+- 발표순서 : 경호님 //  경준님 // 도경님 // 종균님 // 진환님
 - 발표자료 : 개인이 각자 편한 형태로 공유
 
 ## 3. 스터디 교재 및 참고자료
@@ -27,9 +28,17 @@ https://8percent.github.io/2020-11-29/django-reversed-foreign-keys/
 https://blog.nerdfactory.ai/2021/02/24/creating-an-api-&-collecting-html-elements-with-django-rest-framework.html
 
 3) 딜리버리 히어로
+https://medium.com/deliverytechkorea
 
 4) 번개 장터
 
+6) https://www.intakefoods.kr/blog/article/141/
+
+7) https://medium.com/towncompany-engineering
+
+8) https://www.revsys.com/tidbits/django-performance-simple-things/
+
+9) http://blog.hwahae.co.kr/all/tech/tech-tech/6507/
 
 ## 6. Flask 기술 블로그
 1) spoqa
@@ -37,6 +46,7 @@ https://spoqa.github.io/
 
 2) 스타일쉐어
 
+<<<<<<< HEAD
 ## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
 2) https://github.com/8percent/styleguide/tree/master/Python/Django
@@ -44,3 +54,13 @@ https://spoqa.github.io/
 
 ## 8. Django Conference
 1) https://www.youtube.com/watch?v=lx5WQjXLlq8&t=116s
+=======
+
+## 7. Django Style Guide
+1) https://github.com/HackSoftware/Django-styleguide/
+
+
+
+
+
+>>>>>>> 2be293f24dcf024934bc4a49319535498c405786

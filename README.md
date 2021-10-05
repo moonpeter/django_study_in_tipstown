@@ -37,5 +37,10 @@ https://spoqa.github.io/
 
 2) 스타일쉐어
 
-## 7. Django Style Guid
+## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
+2) https://github.com/8percent/styleguide/tree/master/Python/Django
+
+
+## 8. Django Conference
+1) https://www.youtube.com/watch?v=lx5WQjXLlq8&t=116s

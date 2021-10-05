@@ -400,6 +400,7 @@ cf)[self vs cls](https://firework-ham.tistory.com/101)
 > `10.2 Using Mixins With CBVs`를 참고
 
 ### 6.7.2 상태 없는 헬퍼 함수 
+cf) 4.4
 - 로직을 유틸리티 함수로 작성하면 독립적 구성이 가능
 - 로직에 대한 테스트가 쉬워짐
 - stateless 이므로 함수에 더 많은 인자를 필요로 하게 된다.

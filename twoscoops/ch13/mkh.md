@@ -7,7 +7,7 @@
 장고 폼을 들어오는 모든 데이터의 유효성 검사하는 데 사용한다는 것을 꼭 기억하세요!
 
 
-## 장고 폼 유효성 검사
+## 13.1 장고 폼 유효성 검사
 
 대부분의 경우 POST 메서드의 HTTP 요청의 유효성 검사하는데 장고 폼을 사용하지만 꼭 이렇게만 사용하도록 제한하지는 않습니다.
 
@@ -80,7 +80,7 @@ forms.ValidationError(__('Invalid value'), code='invalid')
 
 ---
 
-## HTML 폼에서 POST 메서드 사용하는 법
+## 13.2 HTML 폼에서 POST 메서드 사용하는 법
 
 데이터를 변경하는 모든 HTML 양식은 POST 메서드를 통해 데이터를 제출해야 합니다.
 ```html
@@ -88,7 +88,7 @@ forms.ValidationError(__('Invalid value'), code='invalid')
 ```
 다만, 데이터를 변경하지 않는 쿼리를 제출하는 검색(멱등성)에서는 GET 메서드를 사용해야 합니다.
 
-## 데이터를 수정하는 HTTP Form에는 CSRF(Cross-Site Request Forgery) Protection를 사용하라
+## 13.3 데이터를 수정하는 HTTP Form에는 CSRF(Cross-Site Request Forgery) Protection를 사용하라
 
 장고는 CSRF Protection 기능을 내장하고 있으며, 사용하는 것을 잊으면 친절히 경고 메시지를 제공합니다. 
 
@@ -119,7 +119,7 @@ HTML search form의 경우 데이터를 변경하지 않기 때문에 GET 메서
 
 Jinja2(템플릿 엔진) 템플릿에서 CSRF 작동을 확인하려면 Section 16.3(Considerations When Using Jinja with Dajngo)를 보세요.
 
-## Posting Data via AJAX
+## 13.3.1 Posting Data via AJAX
 
 AJAX를 통해 데이터를 게시할 때도 장고의 CSRF Protection 기능을 꼭 사용해야 합니다.
 
@@ -128,7 +128,7 @@ AJAX를 통해 데이터를 게시할 때도 장고의 CSRF Protection 기능을
 장고 공식문서에서는 jQuery 1.5.1 이상의 도메인간 크로스 체킹과 POST 요청에 대해서만 이 헤더를 설정하는 방법을 소개하고 있습니다.
 docs.djangoproject.com/en/3.2/ref/csrf/#ajax 자세한 내용은 Section 19.3.5를 참고
 
-## 장고 폼에 인스턴스 속성을 추가하는 법
+## 13.4 장고 폼에 인스턴스 속성을 추가하는 법
 
 때때로 장고 폼의 claen(), clean_FOO(), save() 메서드에서 추가적인 폼 인스턴스 속성을 사용할 수 있어야 합니다.
 
@@ -173,5 +173,105 @@ class TasterUpdateView(LoginrequiredMixin, UpdateView):
 
 ```
 
+---
 
+## PACKAGE TIP : django-braces's ModelForm Mixins
 
+request.user 객체를 장고 폼에 삽입하는 것은 자주 수행되며, django-braces는 사용자를 대신할 수 있습니다. 그럼에도(자동으로 해주지만) 작동 방식을 아는 것은 request.user 객체가 아닌 것을 추가할 때 유용합니다.
+
+- https://django-braces.readthedocs.io/en/latest/form.html#userformkwargsmixin
+- https://django-braces.readthedocs.io/en/latest/form.html#userkwargmodelformmixin
+
+---
+
+## 13.5 폼 유효성 검사 작동 원리
+form.is_valid()를 호출 했을 때 workflow:
+    1) 폼에 바인딩 된 데이터가 있는 경우 form.full_clean() 메서드를 호출합니다.
+    2) form.full_clean() 메서드는 폼 필드를 순회하며 각 필드를 자체 유효성 검사를 합니다.
+        a) 필드로 들어오는 데이터는 to_python() 메서드를 통해서 Python으로 강제변환되거나 ValidationError가 발생합니다.
+        b) 데이터는 커스텀 검사기(validators)를 포함하여 필르별 규칙에 따라 검증됩니다.
+        c) 사용자 정의 clean_<field>()메서드가 있으면 이 때 호출됩니다.
+    3) form.full_clean() 메서드는 form.clean() 메서드를 실행합니다.
+    4) ModelForm 인스턴스인 경우, form.post_clean()은 다음을 실행합니다.
+        a) form.is_valid()가 True인지 False인지에 관계없이 ModelForm 데이터를 Model 인스턴스로 설정합니다.
+        b) 모델의 clean()메서드를 호출합니다. 참고로 ORM을 통해 모델 인스턴스를 저장하는 것은 모델의 clean()메서드를 호출하지 않습니다.
+    
+## 13.5.1 폼에 저장된 모델폼 데이터와 모델 인스턴스
+ModelForm에서 폼 데이터는 아래 두 가지 단계를 거쳐 저장됩니다.
+    1) 폼 데이터가 폼 인스턴스에 저장됩니다.
+    2) 다음, 폼 데이터가 모델 인스턴스에 저장됩니다.
+    
+ModelForms는 form.save()메서드에 의해 활성화 될 때까지 모델 인스턴스에 저장하지 않으므로 유용하게 활용 가능합니다.
+    
+예를 들어, 사용자가 제공한 폼 데이터와 의도한 모델 인스턴스의 변경 사항을 모두 저장하여 폼에 대한 실패 세부 정보를 파악할 수 있습니다.
+    
+form_invalid()는 잘못된 데이터가 입력되어 폼의 유효성 검사가 실패한 후에 호출됩니다. 
+    
+아래 예 에서는 호출되면 ModelFormFailureHistory 레코드로 저장됩니다.
+    
+```python
+# core/models.py
+from django.db import models
+    
+class ModelFormFailureHistory(models.Model):
+    form_data = models.TextField()
+    model_data = models.TextFiled()
+    
+# flavors/views.py
+import json
+    
+from django.contrib import messages
+from django.core import serializers
+    
+from core.models import ModelFormFailureHistory
+    
+class FlavorActionMixin:
+    
+    @property
+    def success_msg(self):
+        return NotImplemented
+    
+    def form_valid(self, form):
+        messages.info(self.request, self.success_msg)
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        # Save invalid form and model data for later reference.
+        form_data = json.dumps(form.cleaned_data)
+        # Serialize the form.instance
+        model_data = serializers.serialize('json', [form.instance])
+        # Strip away leading and ending bracket leaving only a dict
+        model_data = model_data[1:-1]
+        ModelFormFailureHistory.objects.create(
+            form_data=form_data,
+            model_data=model_data
+        )
+        return super().form_invalid(form)
+```
+    
+## 13.6 Form_add_error()를 사용하여 폼에 오류 추가
+Form.add_error() 메서드를 사용하여 Form.clean()을 간소화 할 수 있습니다. 
+
+```python
+from django import forms
+    
+class IceCreamReviewForm(forms.Form):
+    # Rest of tester form goes here
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        flavor = cleaned_data.get('flavor')
+        age = cleaned_data.get('age')
+    
+        if flavor == 'coffee' and age < 3:
+            # Record errors that will be displayed later.
+            msg = 'Coffee Ice Cream is not for Babies.'
+            self.add_error('flavor', msg)
+            self.add_error('age', msg)
+                                          
+        # Always return the full collection of cleaned data.
+        return cleaned_data
+```
+    
+                                          
+                                          

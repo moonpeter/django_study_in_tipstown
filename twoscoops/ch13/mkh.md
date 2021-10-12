@@ -186,14 +186,23 @@ request.user 객체를 장고 폼에 삽입하는 것은 자주 수행되며, dj
 
 ## 13.5 폼 유효성 검사 작동 원리
 form.is_valid()를 호출 했을 때 workflow:
+
     1) 폼에 바인딩 된 데이터가 있는 경우 form.full_clean() 메서드를 호출합니다.
+
     2) form.full_clean() 메서드는 폼 필드를 순회하며 각 필드를 자체 유효성 검사를 합니다.
+    
         a) 필드로 들어오는 데이터는 to_python() 메서드를 통해서 Python으로 강제변환되거나 ValidationError가 발생합니다.
+        
         b) 데이터는 커스텀 검사기(validators)를 포함하여 필르별 규칙에 따라 검증됩니다.
+        
         c) 사용자 정의 clean_<field>()메서드가 있으면 이 때 호출됩니다.
+
     3) form.full_clean() 메서드는 form.clean() 메서드를 실행합니다.
+
     4) ModelForm 인스턴스인 경우, form.post_clean()은 다음을 실행합니다.
+    
         a) form.is_valid()가 True인지 False인지에 관계없이 ModelForm 데이터를 Model 인스턴스로 설정합니다.
+        
         b) 모델의 clean()메서드를 호출합니다. 참고로 ORM을 통해 모델 인스턴스를 저장하는 것은 모델의 clean()메서드를 호출하지 않습니다.
     
 ## 13.5.1 폼에 저장된 모델폼 데이터와 모델 인스턴스
@@ -272,6 +281,56 @@ class IceCreamReviewForm(forms.Form):
         # Always return the full collection of cleaned data.
         return cleaned_data
 ```
+
+## 13.8 Customizing Widgets
+장고 위젯에 대한 일반적인 조언:
+
+    - 책에서 계속해서 이야기했듯이 간단하게 유지하고 프레젠테이션에 집중하세요.
+    - 어떠한 위젯도 데이터를 변경해서는 안된다. 보여주는 용도로만 사용하세요
+    - 장고 패턴에 따라 모든 사용자 정의 위젯은 widget.py 모듈에 넣으세요
     
-                                          
-                                          
+## 13.8.1 내장 위젯의 HTML 오버라이딩
+해당 기술은 부트스트랩등과 같은 반응형 프론트엔드 프레임워크 도구를 통합하는데 유용합니다. 
+
+단점은 해당 방식으로 기본 템플릿을 재정의하면 모든 폼 요소에 변경 사항이 적용됩니다.
+아래와 같이 세팅하고 templates 디렉토리 안에 디렉토리를 만들고 템플릿 오버라이딩 합니다. 
+자세한 내용은 해당 링크를 확인하세요(https://github.com/django/django/tree/main/django/forms/templates/django/forms/widgets)
+```python
+# settings.py
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
+INSTALLED_APPS = [
+    ...
+    'django.forms',
+    ...
+]
+```
+
+## 13.8.2 커스텀 위젯 만드는 법
+특정 데이터 유형에 대한 변경을 제한하는 등 위젯을 더 세밀하게 제어하려면 사용자 정의 위젯을 만들 것을 고려하세요.
+
+    1) 해당 링크를 보시고(https://github.com/django/django/tree/main/django), 원하는 위젯을 선택하세요
+    2) 원하는 대로 작동하도록 위젯을 확장하고 변경 사항을 최소한으로 유지하세요.
+    
+```python
+# flavors/widgets.py
+from django.forms.widgets import TextInput
+
+class IceCreamFlavorInput(TextInput):
+# Ice Cream flavors must always end with 'Ice Cream'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        value = context['widget']['value']
+        if not value.strip().lower().endswith('ice cream'):
+            context['widget']['value'] = '{} Ice Cream'.format(value)
+        return context
+```
+
+아래 사항에 주의하세요
+
+    - 위젯이 하는 일은 값이 표시되는 방식을 수정하는 것입니다.
+    - 위젯은 브라우저에서 돌아오는 데이터의 유효성 검사나 수정을 하지 않습니다. 이것은 폼과 모델의 역할입니다.
+    - django.forms.widgets.TextInput의 절대 값을 확장하여 작동되도록 하였습니다. ????????
+    
+

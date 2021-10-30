@@ -60,7 +60,9 @@ https://spoqa.github.io/
 1) https://github.com/HackSoftware/Django-styleguide/
 
 
-
+## 8. 질문 폴더 만들어서 정리하기
+https://jomuljomul.tistory.com/entry/Django-REST-Framework-create-vs-performcreate
+이거 무슨말인지 이해가 잘 안됨 ㅜㅜ
 
 
 >>>>>>> 2be293f24dcf024934bc4a49319535498c405786

@@ -46,7 +46,6 @@ https://spoqa.github.io/
 
 2) 스타일쉐어
 
-<<<<<<< HEAD
 ## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
 2) https://github.com/8percent/styleguide/tree/master/Python/Django
@@ -64,5 +63,7 @@ https://spoqa.github.io/
 https://jomuljomul.tistory.com/entry/Django-REST-Framework-create-vs-performcreate
 이거 무슨말인지 이해가 잘 안됨 ㅜㅜ
 
+## 9. service layer
+https://jay-ji.tistory.com/75
+https://jay-ji.tistory.com/74
 
->>>>>>> 2be293f24dcf024934bc4a49319535498c405786

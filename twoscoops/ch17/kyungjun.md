@@ -269,6 +269,11 @@ Django Rest Framework is a powerful tool that comes with a lot of abstractions. 
 
 ## 17.4.1 Remote Procedure Calls vs REST APIs
 > https://stackoverflow.com/questions/26488915/implementing-rpc-in-restful-api-using-drf/26502402
+> https://adriennedomingus.com/blog/building-a-remote-procedural-call-rpc-endpoint-with-the-django-rest-framework
+> https://nesoy.github.io/articles/2019-07/RPC
+	
+	
+
 The resource model used by REST frameworks to expose data is very powerful, but it doesn’t cover every case. Specifically, resources don’t always match the reality of application design. For example, it is easy to represent syrup and a sundae as two resources, but what about the action of pouring syrup? Using this analogy, 
 we change the state of the sundae and decrease the syrup inventory by one. 
 While we could have the API user change things individually, that can generate issues with database integrity. 

@@ -379,4 +379,15 @@ API를 널리 사용하는 데 도움이 될 수 있는 것은 다양한 프로�
 # 17.8
 > (링크 추가 필요)
 
-# 17.9
+
+# 17.9 Other Approaches for Crafting APIs
+For the reasons explained at the beginning of this chapter, we recommend Django Rest Frame- work. However, should you choose not to use DRF, consider the following approaches
+	
+	
+# 17.10 Summary
+In this chapter we covered:
+- Why you should use Django Rest Framework
+- Basic REST API concepts and how they relate to Django Rest Framework
+- Security considerations
+- Grouping strategies
+- Simplification strategies

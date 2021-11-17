@@ -13,15 +13,17 @@ REST API는 HTTP를 기반으로 삼고 있으므로 각 액션에 알맞는 HTT
 - 단순화하기 위해 때로 GET과 POST 만으로도 구현되도록 설계
 - API가 PUT 요청을 지원한다면 PATCH 또한 구현하는 것이 좋다.
 
-| 요청의 목적 | HTTP Method | Rough SQL equivalent |
-| 새로운 자원 생성 | POST | INSERT |
-| 기존의 자원 읽기 | GET | SELECT |
-| 기존 자원 업데이트 | PUT | UPDATE |
-| 기존 자원 부분 업데이트 | PATCH | UPDATE |
-| 기존 삭제 | DELETE | DELETE |
-| Returns same HTTP headers as GET, but no body content | HEAD | - |
-| Return the supported HTTP methods for the given URL | OPTIONS | - |
-| Echo back the request | TRACE | - |
+| 요청의 목적                                           | HTTP Method | Rough SQL equivalent |
+| :---------------------------------------------------- | :---------: | :------------------- |
+| 새로운 자원 생성                                      |    POST     | INSERT               |
+| 기존의 자원 읽기                                      |     GET     | SELECT               |
+| 기존 자원 업데이트                                    |     PUT     | UPDATE               |
+| 기존 자원의 부분 업데이트                             |    PATCH    | UPDATE               |
+| 기존 자원 삭제                                        |   DELETE    |                      |
+| Returns same HTTP headers as GET, but no body content |    HEAD     |                      |
+| Return the supported HTTP methods for the given URL   |   OPTIONS   |                      |
+| Echo back the request                                 |    TRACE    |                      |
+
 
 > If you’re implementing a read-only API, you might only need to implement GET methods.
 > If you’re implementing a read-write API, you should use the GET, POST, PUT, and DELETE methods.

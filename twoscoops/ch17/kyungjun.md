@@ -290,8 +290,7 @@ The resource model used by REST frameworks to expose data is very powerful, but 
 we change the state of the sundae and decrease the syrup inventory by one. 
 While we could have the API user change things individually, that can generate issues with database integrity. 
 Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as part of the RESTful API.
->>>>>>> 77f3bc11e58ff100cfcb7b21bced29d53a3af1ce
-In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
+> In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
 컴퓨터 공학 관점에서 sundae.pour_syrup(syrup)은 RPC로 분류된다.
 
 References:

@@ -53,7 +53,7 @@ https://spoqa.github.io/
 
 ## 8. Django Conference
 1) https://www.youtube.com/watch?v=lx5WQjXLlq8&t=116s
-=======
+
 
 ## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
@@ -66,4 +66,11 @@ https://jomuljomul.tistory.com/entry/Django-REST-Framework-create-vs-performcrea
 ## 9. service layer
 https://jay-ji.tistory.com/75
 https://jay-ji.tistory.com/74
+
+
+## 10. python + Djagno -> java 전환
+https://medium.com/29cm/%EC%9C%A0%EC%A0%80-%EC%A3%BC%EB%AC%B8-%EC%B7%A8%EC%86%8C-%EA%B8%B0%EB%8A%A5-java-%EC%A0%84%ED%99%98%EA%B8%B0-d218e5ecb874
+
+## 11. java -> python + Django 전환
+
 

@@ -262,20 +262,33 @@ Writing out the why and how of a customized authentication scheme is a critical 
 > After the system is in place, later the documentation allows us (or others) to
 understand why we made particular design decisions.
 
-# 17.4 When DRF Gets in the Way
-Django Rest Framework is a powerful tool that comes with a lot of abstractions. Trying to work through these abstractions can prove to be extremely frustrating. Let’s take a look on overcoming them.
+# 17.4 언제 DRF가 방해가 될까요?
+Django Rest Framework is a powerful tool that comes with 많은 추상화. Trying to work through these abstractions can prove to be extremely frustrating. Let’s take a look on overcoming them.
 
 ## 17.4.1 Remote Procedure Calls vs REST APIs
 > https://stackoverflow.com/questions/26488915/implementing-rpc-in-restful-api-using-drf/26502402
-The resource model used by REST frameworks to expose data is very powerful, but it doesn’t cover every case. Specifically, resources don’t always match the reality of application design. For example, it is easy to represent syrup and a sundae as two resources, but what about the action of pouring syrup? Using this analogy, 
-we change the state of the sundae and decrease the syrup inventory by one. 
-While we could have the API user change things individually, that can generate issues with database integrity. 
-Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as part of the RESTful API.
+The resource model used by REST frameworks to expose data is very powerful, but it doesn’t cover every case. Specifically, resources don’t always match the reality of application design. 
+
+For example, it is easy to represent syrup and a sundae as two resources, but what about the 액션 of pouring syrup? Using this analogy, 
+we change the state of the sundae and decrease the syrup inventory by one.
+우리는  sundae의 상태를 변화시키고, syrup 재고를 감소시켰다.
+While we could have the API user change things individually, that can generate issues with database integrity.
+반면에 우리는 user가 그것들을 개별적으로 변화 시킬 수 있는 API를 가질 수 있었다. 이것이 데이터 베이스의 무결성(integrity)의 문제를 야기 시킨다.
+
+Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as 
+그러므로 몇몇의 경우에는 sundae.pour_syrup(syrup)과 같은 method를 RESTful API의 부분으로 client에 제시하는 것이 좋다.
+part of the RESTful API.
 In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
+컴퓨터 공학 관점에서 sundae.pour_syrup(syrup)은 RPC로 분류된다.
+
 References:
 > https://en.wikipedia.org/wiki/Remote_Procedure_Call
 > https://en.wikipedia.org/wiki/Resource-oriented_architecture
-Fortunately, RPC calls are easy to implement with Django Rest Framework. All we have to do is ignore the abstraction tools of DRF and rely instead on its base APIView:
+Fortunately, RPC calls are easy to implement with Django Rest Framework.
+운좋게, Django Rest Framework로 RPC call을 실행시키는 것은 쉽다.
+
+All we have to do is ignore the abstraction tools of DRF and rely instead on its base APIView:
+우리가 해야하는 것은 DRF 툴의 추상화를 무시하고, 대신에 APIview base에 의존하는 것이다.
 
 ```python
 # sundaes/api/views.py
@@ -326,57 +339,184 @@ Okay, we’ll admit it, we make this mistake with DRF about once a month. Let’
 - We have a model (Scoop) that we want represented within another (Cone)
 - We can easily write a GET of the Cone that includes a list of its Scoops
 - On the other hand, writing a POST or PUT of Cones that also adds or updates
+반면에, Cones(그것의 Scoope이 더해지거나 업데이트 하는)의 POST또는 PUT을 동시에 사용하는 것은 힘들다.  
 its Scoops at the same time can be challenging, especially if it requires any kind of
 validation or post processing
 - Frustration sets in and we leave to get some real-world ice cream
 
 While there are nicely complex solutions for nested data, we’ve found a better solution. And that is to simplify things just a bit. Example:
 > Keep the GET representation of the Cone that includes its Scoops
-> Remove any capability of the POST or PUT for the Cone model to modify Scoops
-for that cone.
+> Remove any capability of the POST or PUT for the Cone model to modify Scoops for that cone.
+해당 cone의 scoops이 수정되기 위해서 Cone model이 POST 또는 PUT 되는 가능성을 제거함
+
 > Create GET/POST/PUT API views for Scoops that belong to a Cone.
+신규 생성된 end point를 가리킴
 
 Our end API will now look like this:
 ```
 /api/cones/  # GET, POST
 /api/cones/:uuid/  # PUT, DELETE
-/api/cones/:uuid/scoops/  # GET, POST
-/api/cones/:uuid/scoops/:uuid/  # PUT, DELETE
+/api/cones/:uuid/scoops/  # GET, POST # 신규 생성
+/api/cones/:uuid/scoops/:uuid/  # PUT, DELETE # 신규 생성
 /api/scoops/  # GET, POST
 /api/scoops/:uuid/  # PUT, DELETE
 ```
+Yes, this approach does add extra views and additional API calls. 
+On the other hand, this kind of data modeling can result in simplification of your API. 
+That simplification will result in easier testing, hence a more robust API.
+
+
 https://stripe.com/docs/api
 
-## 17.4.3 Simplify! Go Atomic!
+[경준 추가]
+심플하게 URI을 구성하기 
+
+/customers/1/orders/99/proudcts/ -> 유연성이 떨어짐.
+
+/customers/1/orders/ 를 통해 고객 1의 모든 주문을 찾은 후에,
+/orders/99/products/로 변경해서 동일한 처리
 
 
-# 17.5 외부 API shut down
+## 17.4.3 Simplify! Go Atomic!(view, REST data model, serializer)
+In the previous two subsections (RPC Calls and Problems With Complex Data), we’ve established a pattern of simplification. In essence, when we run into problems with DRF we ask these questions:
+- Can we simplify our views? Does switching to APIView resolve the problem?
+- Can we simplify our REST data model as described by views? Does adding more
+views (of a straightforward nature) resolve the problem?
+- If a serializer is troublesome and is outrageously complex, why not break it up into two different serializers for the same model?
+As you can see, to overcome problems with DRF, we break our API down into smaller, more atomic components. 
+We’ve found that it’s better to have more views designed to be as atomic as possible than a few views with many options. As any experienced programmer knows, more options means more edge cases.
 
+Atomic-style(원자성 방식) components help in these regards:
+- Documentation is easier/faster because each component does less
+- Easier testing since there are fewer code branches
+- Bottlenecks are easier to resolve because chokepoints(조임목) are more isolated
+- Security is better since we can easily change access per view rather than within the code of a view
+
+
+
+
+# 17.5 Shutting Down an External API
+When it’s time to shut down an older version of an external API in favor of a new one, here are useful steps to follow:
 
 ## 17.5.1 User에게 알린다.
+1달 ~ 6달 전에
 
 ## 17.5.2 API를 410 Error Viwe로 교체한다.
+> 메시지에 새로운 API의 엔드포인트, 새로운 API 문서, shut down과 관련한 자세한 내용을 포함한다.
 
 # 17.6 횟수 제한 API
 
-## 17.6.1 User에게 알린다.
+## 17.6.1 Unfettered API Access Is Dangerous
+> 접근이 통제되지 않으면 문제를 일으킨다.
+
+At 17 minutes past each hour, Django Packages would send thousands of requests to the GitHub API in a very short period.
+
+We complied, checking data once per day instead of by the hour, and at a more reasonable rate. We continue to do so to this day.
 
 ## 17.6.2 REST Frameworks Must Come With Rate Limiting
+Controlling the volume of REST API access can mean the difference between joyful tri- umph or utter disaster in a project.
+
+
 > 속도면에서는 nginx, apache의 횟수 제한을 사용하는 것이 좋지만, 해당 기능을 파이썬 코드에서 제거한다.
 
 ## 17.6.3 Rate Limiting Can Be a Business Plan
+```
+Developer tier is free, but only allows 10 API requests per hour. 
+One Scoop is $24/month, allows 25 requests per minute.
+Two Scoops is $79/month, allows 50 requests per minute. 
+Corporate is $5000/month, allows for 200 requests per minute.
+```
 
 # 17.7 너의 REST API 광고하기
 
 ## 17.7.1 문서화
+The most important thing to do is to provide comprehensive documentation. 
+The easier to read and understand the better. Providing easy-to-use code examples is a must. You can write it from scratch or use auto-documentation tools provided by django-rest-framework itself and various third-party packages (django-rest-framework.org/topics/documenting-your-api/#third-party-packages.) You can even embrace commercial documentation generation services like readthedocs.com and swagger.io.
+Some of the material in Chapter 25: Documentation: Be Obsessed might prove useful for forward-facing REST API documentation.
+
+
 
 ## 17.7.2 Clien SDKs 제공하기
-> https://www.youtube.com/watch?v=kG-fLp9BTRo
+> API vs. SDK : 차이점은 무엇입니까?
+https://www.youtube.com/watch?v=kG-fLp9BTRo
+https://you9010.tistory.com/147
 
-API를 널리 사용하는 데 도움이 될 수 있는 것은 다양한 프로그래밍 언어를 위한 소프트웨어 개발 키트(SDK)를 제공하는 것입니다. 더 많은 프로그래밍 언어가 더 잘 다루어졌다. 우리는 파이썬, 자바스크립트, 루비, PHP, Go, 자바를 포함한 필수 언어들을 찾았다.
+
+API를 널리 사용하는 데 도움이 될 수 있는 것은 다양한 프로그래밍 언어를 위한 소프트웨어 개발 키트(SDK)를 제공하는 것입니다.
 경험상, 적어도 하나의 라이브러리를 직접 작성하고 데모 프로젝트를 만드는 것이 좋습니다. 그 이유는 그것이 우리의 API를 홍보할 뿐만 아니라 우리의 API를 소비자와 같은 유리한 관점에서 경험하도록 강요하기 때문입니다.
 
-# 17.8
-> (링크 추가 필요)
 
-# 17.9
+Fortunately for us, thanks to the underlying OpenAPI document object model of (openapis.org/), 
+DRF provides JSON Hyperschema-compatible functionality. 
+DRF는 JSON Hyperschema-compatible 기능을 제공합니다.
+When this format is followed for both the client- and server-side, OpenAPI allows for writing dynamically driven client libraries that can interact with any API that exposes a supported schema or hypermedia format.
+
+https://stackoverflow.com/questions/29584903/what-is-hypermedia-hypermedia-controls-hypermedia-formats
+
+
+- Command line client 
+> https://www.django-rest-framework.org/api-guide/schemas/ # generating-an-openapi-schema
+- Multi-language Client SDK generator 
+> github.com/OpenAPITools/openapi-generator
+- swagger-cli for use with JavaScript 
+> npmjs.com/package/swagger-cli
+
+For building Python-powered client SDKs, reading Section 23.9: Releasing Your Own Django Packages might prove useful.
+
+
+# 17.8 Additional Reading
+
+<a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a>
+<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">List_of_HTTP_status_codes</a>
+<a href="https://github.com/OAI/OpenAPI-Specification">OpenAPI-Specification</a>
+<a href="https://jacobian.org/2008/nov/14/rest-worst-practices/">rest-worst-practices</a>
+
+
+# 17.9 Other Approaches for Crafting APIs
+
+
+## 17.9.1 CBV Approach: JsonResponse with View
+
+It is possible to use Django’s built-in django.http.JsonResponse class, which is a sub-class of django.http.HttpResponse, on django.views.generic.View. 
+This supports the full range of HTTP methods but has no support for OpenAPI.
+This is proven to work with async views.
+
+
+
+
+```python
+class FlavorApiView(LoginRequiredMixin,View):
+
+    def post(self, request, *args, **kwargs):
+        # logic goes here
+        return JsonResponse({})
+
+    def get(self, request, *args, **kwargs): 
+        # logic goes here
+        return JsonResponse({})
+
+    def put(self, request, *args, **kwargs):
+        # logic goes here
+        return JsonResponse({})
+
+    def delete(self, request, *args, **kwargs): 
+        # logic goes here
+        return JsonResponse({})
+```
+
+## 17.9.2 FBV approach: django-jsonview
+
+## 17.9.3 django-tatypie
+
+# 17.10 Summary
+
+- Why you should use Django Rest Framework
+- Basic REST API concepts and how they relate to Django Rest Framework
+- Security considerations
+- Grouping strategies
+- Simplification strategies
+- Fundamentals of basic REST API design
+- Alternatives to Django REST Framework
+
+Coming up next, we’ll go over the other side of REST APIs in Chapter 19: JavaScript and Django.
+

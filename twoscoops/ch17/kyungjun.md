@@ -13,15 +13,17 @@ REST API는 HTTP를 기반으로 삼고 있으므로 각 액션에 알맞는 HTT
 - 단순화하기 위해 때로 GET과 POST 만으로도 구현되도록 설계
 - API가 PUT 요청을 지원한다면 PATCH 또한 구현하는 것이 좋다.
 
-| 요청의 목적 | HTTP Method | Rough SQL equivalent |
-| 새로운 자원 생성 | POST | INSERT |
-| 기존의 자원 읽기 | GET | SELECT |
-| 기존 자원 업데이트 | PUT | UPDATE |
-| 기존 자원 부분 업데이트 | PATCH | UPDATE |
-| 기존 삭제 | DELETE | DELETE |
-| Returns same HTTP headers as GET, but no body content | HEAD | - |
-| Return the supported HTTP methods for the given URL | OPTIONS | - |
-| Echo back the request | TRACE | - |
+| 요청의 목적                                           | HTTP Method | Rough SQL equivalent |
+| :---------------------------------------------------- | :---------: | :------------------- |
+| 새로운 자원 생성                                      |    POST     | INSERT               |
+| 기존의 자원 읽기                                      |     GET     | SELECT               |
+| 기존 자원 업데이트                                    |     PUT     | UPDATE               |
+| 기존 자원의 부분 업데이트                             |    PATCH    | UPDATE               |
+| 기존 자원 삭제                                        |   DELETE    |                      |
+| Returns same HTTP headers as GET, but no body content |    HEAD     |                      |
+| Return the supported HTTP methods for the given URL   |   OPTIONS   |                      |
+| Echo back the request                                 |    TRACE    |                      |
+
 
 > If you’re implementing a read-only API, you might only need to implement GET methods.
 > If you’re implementing a read-write API, you should use the GET, POST, PUT, and DELETE methods.
@@ -267,6 +269,7 @@ Django Rest Framework is a powerful tool that comes with 많은 추상화. Tryin
 
 ## 17.4.1 Remote Procedure Calls vs REST APIs
 > https://stackoverflow.com/questions/26488915/implementing-rpc-in-restful-api-using-drf/26502402
+<<<<<<< HEAD
 The resource model used by REST frameworks to expose data is very powerful, but it doesn’t cover every case. Specifically, resources don’t always match the reality of application design. 
 
 For example, it is easy to represent syrup and a sundae as two resources, but what about the 액션 of pouring syrup? Using this analogy, 
@@ -278,6 +281,17 @@ While we could have the API user change things individually, that can generate i
 Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as 
 그러므로 몇몇의 경우에는 sundae.pour_syrup(syrup)과 같은 method를 RESTful API의 부분으로 client에 제시하는 것이 좋다.
 part of the RESTful API.
+=======
+> https://adriennedomingus.com/blog/building-a-remote-procedural-call-rpc-endpoint-with-the-django-rest-framework
+> https://nesoy.github.io/articles/2019-07/RPC
+	
+	
+
+The resource model used by REST frameworks to expose data is very powerful, but it doesn’t cover every case. Specifically, resources don’t always match the reality of application design. For example, it is easy to represent syrup and a sundae as two resources, but what about the action of pouring syrup? Using this analogy, 
+we change the state of the sundae and decrease the syrup inventory by one. 
+While we could have the API user change things individually, that can generate issues with database integrity. 
+Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as part of the RESTful API.
+>>>>>>> 77f3bc11e58ff100cfcb7b21bced29d53a3af1ce
 In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
 컴퓨터 공학 관점에서 sundae.pour_syrup(syrup)은 RPC로 분류된다.
 
@@ -446,6 +460,7 @@ API를 널리 사용하는 데 도움이 될 수 있는 것은 다양한 프로�
 경험상, 적어도 하나의 라이브러리를 직접 작성하고 데모 프로젝트를 만드는 것이 좋습니다. 그 이유는 그것이 우리의 API를 홍보할 뿐만 아니라 우리의 API를 소비자와 같은 유리한 관점에서 경험하도록 강요하기 때문입니다.
 
 
+<<<<<<< HEAD
 Fortunately for us, thanks to the underlying OpenAPI document object model of (openapis.org/), 
 DRF provides JSON Hyperschema-compatible functionality. 
 DRF는 JSON Hyperschema-compatible 기능을 제공합니다.
@@ -510,13 +525,25 @@ class FlavorApiView(LoginRequiredMixin,View):
 
 # 17.10 Summary
 
+=======
+
+# 17.9 Other Approaches for Crafting APIs
+For the reasons explained at the beginning of this chapter, we recommend Django Rest Frame- work. However, should you choose not to use DRF, consider the following approaches
+	
+	
+# 17.10 Summary
+In this chapter we covered:
+>>>>>>> 77f3bc11e58ff100cfcb7b21bced29d53a3af1ce
 - Why you should use Django Rest Framework
 - Basic REST API concepts and how they relate to Django Rest Framework
 - Security considerations
 - Grouping strategies
 - Simplification strategies
+<<<<<<< HEAD
 - Fundamentals of basic REST API design
 - Alternatives to Django REST Framework
 
 Coming up next, we’ll go over the other side of REST APIs in Chapter 19: JavaScript and Django.
 
+=======
+>>>>>>> 77f3bc11e58ff100cfcb7b21bced29d53a3af1ce

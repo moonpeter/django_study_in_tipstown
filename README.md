@@ -46,7 +46,6 @@ https://spoqa.github.io/
 
 2) 스타일쉐어
 
-<<<<<<< HEAD
 ## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
 2) https://github.com/8percent/styleguide/tree/master/Python/Django
@@ -54,13 +53,24 @@ https://spoqa.github.io/
 
 ## 8. Django Conference
 1) https://www.youtube.com/watch?v=lx5WQjXLlq8&t=116s
-=======
+
 
 ## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
 
 
+## 8. 질문 폴더 만들어서 정리하기
+https://jomuljomul.tistory.com/entry/Django-REST-Framework-create-vs-performcreate
+이거 무슨말인지 이해가 잘 안됨 ㅜㅜ
+
+## 9. service layer
+https://jay-ji.tistory.com/75
+https://jay-ji.tistory.com/74
 
 
+## 10. python + Djagno -> java 전환
+https://medium.com/29cm/%EC%9C%A0%EC%A0%80-%EC%A3%BC%EB%AC%B8-%EC%B7%A8%EC%86%8C-%EA%B8%B0%EB%8A%A5-java-%EC%A0%84%ED%99%98%EA%B8%B0-d218e5ecb874
 
->>>>>>> 2be293f24dcf024934bc4a49319535498c405786
+## 11. java -> python + Django 전환
+
+

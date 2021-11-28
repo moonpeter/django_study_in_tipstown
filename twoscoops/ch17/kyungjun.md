@@ -280,7 +280,20 @@ While we could have the API user change things individually, that can generate i
 Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as 
 그러므로 몇몇의 경우에는 sundae.pour_syrup(syrup)과 같은 method를 RESTful API의 부분으로 client에 제시하는 것이 좋다.
 part of the RESTful API.
-In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
+
+ In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
+
+
+> https://adriennedomingus.com/blog/building-a-remote-procedural-call-rpc-endpoint-with-the-django-rest-framework
+> https://nesoy.github.io/articles/2019-07/RPC
+	
+	
+
+The resource model used by REST frameworks to expose data is very powerful, but it doesn’t cover every case. Specifically, resources don’t always match the reality of application design. For example, it is easy to represent syrup and a sundae as two resources, but what about the action of pouring syrup? Using this analogy, 
+we change the state of the sundae and decrease the syrup inventory by one. 
+While we could have the API user change things individually, that can generate issues with database integrity. 
+Therefore in some cases it can be a good idea to present a method like sundae.pour_syrup(syrup) to the client as part of the RESTful API.
+> In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
 컴퓨터 공학 관점에서 sundae.pour_syrup(syrup)은 RPC로 분류된다.
 
 References:
@@ -511,7 +524,7 @@ class FlavorApiView(LoginRequiredMixin,View):
 ## 17.9.3 django-tatypie
 
 # 17.10 Summary
-
+In this chapter we covered:
 - Why you should use Django Rest Framework
 - Basic REST API concepts and how they relate to Django Rest Framework
 - Security considerations
@@ -521,4 +534,3 @@ class FlavorApiView(LoginRequiredMixin,View):
 - Alternatives to Django REST Framework
 
 Coming up next, we’ll go over the other side of REST APIs in Chapter 19: JavaScript and Django.
-

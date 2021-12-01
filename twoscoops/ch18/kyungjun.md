@@ -1,4 +1,4 @@
-~~~~python
+
 # 18장. Django로 GraphQL API 구현하기
 
 
@@ -150,4 +150,3 @@ Ariadne는 비즈니스 로직을 함수나 클래스 정의로 덤핑하여 사
 
 ### 18.3.4 Test Your API
 Ariadne 기반 GraphQL을 테스트하는 가장 좋은 방법은 Django 내장 RequestFactory를 사용하는 것입니다.
-~~~~

@@ -1,8 +1,6 @@
 # Django Templates and Jinja2
 
-Django 1.8에서는 다중 템플릿 엔진을 지원해왔다. 지금으로 서는, Django template System에 사용할 수 있는 기본 제공 백엔드는 Dajgno template과 Jinja2 입니다.
-
-
+장고 1.8에서는 여러 개의 템플릿 엔진이 지원되었다. 현재 장고 템플릿 시스템에 사용할 수 있는 내장 백엔드는 DTL(Dango Template Language)과 Jinja2뿐입니다.
 
 ##  What’s the Syntactical Difference?
 
@@ -42,7 +40,7 @@ Chapter 16: Django Templates and Jinja2
 
 다음은 장고 템플리트 언어를 사용하는 이유입니다.
 
-- 배터리에는 장고 문서에 명확하게 기록된 모든 기능이 포함되어 있습니다. DTL에 대한 공식 장고 문서는 매우 광범위하고 따르기 쉽다. 장고 문서의 템플릿 코드 예제는 DTL을 사용합니다.
+- batteries-included(표준 라이브러리만으로 모든 작업을 수행 가능) 장고 문서에 명확하게 기록된 모든 기능이 포함되어 있습니다. DTL에 대한 공식 장고 문서는 매우 광범위하고 따르기 쉽다. 장고 문서의 템플릿 코드 예제는 DTL을 사용합니다.
 - 장고 패키지는 대부분 DTL을 사용한다. 그것들을 진자2로 변환하는 것은 추가 작업입니다.
 - 대규모 코드베이스를 DTL에서 Jinja2로 변환하는 것은 많은 작업입니다.
 

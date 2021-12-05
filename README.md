@@ -1,3 +1,4 @@
+# https://www.youtube.com/watch?v=bx29lcIXCPg
 # DSIT (Django_Study_In_Tipstown)
 
 ## 1. 매주 화요일 오후 7시 (장소 : 팁스타운 s6 / 역삼동)

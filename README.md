@@ -41,6 +41,8 @@ https://medium.com/deliverytechkorea
 
 9) http://blog.hwahae.co.kr/all/tech/tech-tech/6507/
 
+10) https://netmarble.engineering/data-pipeline-design-principles-a/?fbclid=IwAR1P0zJvZ-Cwn0DZ78kCnKxsYeeDqB0G9yKJ82bD7CXu31IyP_KixrXtAo0
+
 ## 6. Flask 기술 블로그
 1) spoqa
 https://spoqa.github.io/

@@ -281,6 +281,9 @@ Therefore in some cases it can be a good idea to present a method like sundae.po
 그러므로 몇몇의 경우에는 sundae.pour_syrup(syrup)과 같은 method를 RESTful API의 부분으로 client에 제시하는 것이 좋다.
 part of the RESTful API.
 
+ In computer science terms, sundae.pour_syrup(syrup) could be classified as a Remote Procedure Call or RPC.
+
+
 > https://adriennedomingus.com/blog/building-a-remote-procedural-call-rpc-endpoint-with-the-django-rest-framework
 > https://nesoy.github.io/articles/2019-07/RPC
 	
@@ -520,10 +523,6 @@ class FlavorApiView(LoginRequiredMixin,View):
 
 ## 17.9.3 django-tatypie
 
-# 17.9 Other Approaches for Crafting APIs
-For the reasons explained at the beginning of this chapter, we recommend Django Rest Frame- work. However, should you choose not to use DRF, consider the following approaches
-	
-	
 # 17.10 Summary
 In this chapter we covered:
 - Why you should use Django Rest Framework
@@ -531,7 +530,6 @@ In this chapter we covered:
 - Security considerations
 - Grouping strategies
 - Simplification strategies
-<<<<<<< HEAD
 - Fundamentals of basic REST API design
 - Alternatives to Django REST Framework
 

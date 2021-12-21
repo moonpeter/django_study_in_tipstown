@@ -1,3 +1,4 @@
+# https://www.youtube.com/watch?v=bx29lcIXCPg
 # DSIT (Django_Study_In_Tipstown)
 
 ## 1. 매주 화요일 오후 7시 (장소 : 팁스타운 s6 / 역삼동)
@@ -39,6 +40,8 @@ https://medium.com/deliverytechkorea
 8) https://www.revsys.com/tidbits/django-performance-simple-things/
 
 9) http://blog.hwahae.co.kr/all/tech/tech-tech/6507/
+
+10) https://tech.buzzvil.com/blog/vs-code%EB%A1%9C-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%95%88%EC%97%90%EC%84%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EA%B8%B0/
 
 ## 6. Flask 기술 블로그
 1) spoqa

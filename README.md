@@ -43,6 +43,8 @@ https://medium.com/deliverytechkorea
 
 10) https://tech.buzzvil.com/blog/vs-code%EB%A1%9C-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%95%88%EC%97%90%EC%84%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EA%B8%B0/
 
+11) https://blog.pingpong.us/python-in-pingpong/
+
 ## 6. Flask 기술 블로그
 1) spoqa
 https://spoqa.github.io/

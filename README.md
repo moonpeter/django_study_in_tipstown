@@ -45,6 +45,8 @@ https://medium.com/deliverytechkorea
 
 11) https://blog.pingpong.us/python-in-pingpong/
 
+12) https://toss.tech/article/smart-web-service-cache
+
 ## 6. Flask 기술 블로그
 1) spoqa
 https://spoqa.github.io/

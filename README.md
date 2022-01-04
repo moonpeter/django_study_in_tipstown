@@ -41,9 +41,18 @@ https://medium.com/deliverytechkorea
 
 9) http://blog.hwahae.co.kr/all/tech/tech-tech/6507/
 
+
 10) https://netmarble.engineering/data-pipeline-design-principles-a/?fbclid=IwAR1P0zJvZ-Cwn0DZ78kCnKxsYeeDqB0G9yKJ82bD7CXu31IyP_KixrXtAo0
 
 11) 타운 컴퍼니 - 기술블로그 https://medium.com/towncompany-engineering/celery-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B6%84%EC%82%B0-%EC%B2%98%EB%A6%AC%EB%A1%9C-api-%EC%86%8D%EB%8F%84-%EA%B0%9C%EC%84%A0-8c9bcf0f119c
+
+10) https://tech.buzzvil.com/blog/vs-code%EB%A1%9C-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%95%88%EC%97%90%EC%84%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EA%B8%B0/
+
+11) https://blog.pingpong.us/python-in-pingpong/
+
+12) https://toss.tech/article/smart-web-service-cache
+
+
 ## 6. Flask 기술 블로그
 1) spoqa
 https://spoqa.github.io/

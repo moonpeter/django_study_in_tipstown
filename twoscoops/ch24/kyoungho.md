@@ -104,6 +104,8 @@
 ### 24.3.2 For Views, When Possible Use the Request Factory
 
 - django.test.client.RequestFactory는 모든 뷰에 대해 첫 번째 인자로 이용할 수 있는 인스턴스를 제공
+- (to generate a request instance that can be used as the first argument to any view.) ????
+- RequestFactory and Client have some very different use-cases. To put it in a single sentence: RequestFactory **returns a request**, while Client **returns a response**.
   - 기본 장고 테스트 클라이언트보다 독립된 환경을 제공
   - 단, 세션과 인증을 포함한 미들웨어를 지원하지 않기 때문에 추가적인 작업이 요구된다.
   - 세션을 필요로 하는 뷰를 테스트 하고자 하면 아래와 같이 작성 할 수 있다.
@@ -178,8 +180,7 @@
     - 단, 새로운 필드 타입을 생성하는 경우라면 해야함.
 
 ### 24.3.7 Test for Failure
-
-- 테스트의 성공이 문제 없을 보장하지는 않는다.
+- 성공 시나리오에서의 실패는 사용자에게 불편을 야기하겠지만 바로 보고되는 사항들이다. 반면 실패 시나리오에서의 실패는 인지하지도 못하는 보안상의 문제점을 만들어내고, 이러한 문제들이 발견됐을 때는 이미 너무 늦은 경우가 많다.
 
 ### 24.3.8 Use Mock to Keep Unit Tests From Touching The World
 
@@ -192,7 +193,7 @@
   - monkey patch : 프로그램이 시스템 소프트웨어를 개별적으로 확장 또는 수정하는 방법을 의미
 
 ### 24.3.9 Use Fancier Assertion Methods
-
+- https://docs.djangoproject.com/en/3.2/topics/testing/tools/#assertions
 - 유용한 assertion methods
   - assertRaises
   - assertRaisesMessage()

@@ -52,6 +52,8 @@ https://medium.com/deliverytechkorea
 
 12) https://toss.tech/article/smart-web-service-cache
 
+13) https://www.agiliq.com/blog/
+
 
 ## 6. Flask 기술 블로그
 1) spoqa
@@ -85,5 +87,3 @@ https://jay-ji.tistory.com/74
 https://medium.com/29cm/%EC%9C%A0%EC%A0%80-%EC%A3%BC%EB%AC%B8-%EC%B7%A8%EC%86%8C-%EA%B8%B0%EB%8A%A5-java-%EC%A0%84%ED%99%98%EA%B8%B0-d218e5ecb874
 
 ## 11. java -> python + Django 전환
-
-

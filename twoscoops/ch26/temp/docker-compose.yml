@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  chapter26:
+    restart: always
+    container_name: chapter26
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '8000:8000'
+
+networks:
+  default:
+    external:
+      name: ch26

@@ -1,10 +1,12 @@
+# https://www.youtube.com/watch?v=bx29lcIXCPg
 # DSIT (Django_Study_In_Tipstown)
 
 ## 1. 매주 화요일 오후 7시 (장소 : 팁스타운 s6 / 역삼동)
+- 현재는 코로나 거리 두기 단계 4단계 격상으로 인해 google meet활용해 진행하고 있음
 
 ## 2. 발표방식 : 챕터 1 개를 요약해서 발표 진행
 - 진행 시간 분배 : 기본 교재 + (알파 : 각자 코드 리뷰 및 고민 사항)
-- 발표순서 : 경호님 //  경준님 
+- 발표순서 : 경호님 //  경준님 // 도경님 // 종균님 // 진환님
 - 발표자료 : 개인이 각자 편한 형태로 공유
 
 ## 3. 스터디 교재 및 참고자료
@@ -27,8 +29,28 @@ https://8percent.github.io/2020-11-29/django-reversed-foreign-keys/
 https://blog.nerdfactory.ai/2021/02/24/creating-an-api-&-collecting-html-elements-with-django-rest-framework.html
 
 3) 딜리버리 히어로
+https://medium.com/deliverytechkorea
 
 4) 번개 장터
+
+6) https://www.intakefoods.kr/blog/article/141/
+
+7) https://medium.com/towncompany-engineering
+
+8) https://www.revsys.com/tidbits/django-performance-simple-things/
+
+9) http://blog.hwahae.co.kr/all/tech/tech-tech/6507/
+
+
+10) https://netmarble.engineering/data-pipeline-design-principles-a/?fbclid=IwAR1P0zJvZ-Cwn0DZ78kCnKxsYeeDqB0G9yKJ82bD7CXu31IyP_KixrXtAo0
+
+11) 타운 컴퍼니 - 기술블로그 https://medium.com/towncompany-engineering/celery-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B6%84%EC%82%B0-%EC%B2%98%EB%A6%AC%EB%A1%9C-api-%EC%86%8D%EB%8F%84-%EA%B0%9C%EC%84%A0-8c9bcf0f119c
+
+10) https://tech.buzzvil.com/blog/vs-code%EB%A1%9C-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%95%88%EC%97%90%EC%84%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EA%B8%B0/
+
+11) https://blog.pingpong.us/python-in-pingpong/
+
+12) https://toss.tech/article/smart-web-service-cache
 
 
 ## 6. Flask 기술 블로그
@@ -37,5 +59,31 @@ https://spoqa.github.io/
 
 2) 스타일쉐어
 
-## 7. Django Style Guid
+## 7. Django Style Guide
 1) https://github.com/HackSoftware/Django-styleguide/
+2) https://github.com/8percent/styleguide/tree/master/Python/Django
+
+
+## 8. Django Conference
+1) https://www.youtube.com/watch?v=lx5WQjXLlq8&t=116s
+
+
+## 7. Django Style Guide
+1) https://github.com/HackSoftware/Django-styleguide/
+
+
+## 8. 질문 폴더 만들어서 정리하기
+https://jomuljomul.tistory.com/entry/Django-REST-Framework-create-vs-performcreate
+이거 무슨말인지 이해가 잘 안됨 ㅜㅜ
+
+## 9. service layer
+https://jay-ji.tistory.com/75
+https://jay-ji.tistory.com/74
+
+
+## 10. python + Djagno -> java 전환
+https://medium.com/29cm/%EC%9C%A0%EC%A0%80-%EC%A3%BC%EB%AC%B8-%EC%B7%A8%EC%86%8C-%EA%B8%B0%EB%8A%A5-java-%EC%A0%84%ED%99%98%EA%B8%B0-d218e5ecb874
+
+## 11. java -> python + Django 전환
+
+

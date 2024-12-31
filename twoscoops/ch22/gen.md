@@ -77,6 +77,8 @@ AUTH_USER_MODEL = 'profiles.KarmaUser'
 
 `password`, `last_login`, `is_active` 필드만 가진 기본 형태의 옵션입니다.
 
+> `is_active` 는 생성되지 않네요.
+
 - User 모델이 기본으로 제공하는 필드(`first_name`, `last_name`)에 만족하지 못할 때
 - 기본 형태만 가진 가벼운 상태로부터 새로 서브 클래스를 생성하면서, 패스워드를 저장하기 위해 `AbstractBaseUser`의 기본 환경의 장점을 이용하고 싶을 때
 - [https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#a-full-example](https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#a-full-example)
@@ -86,13 +88,13 @@ AUTH_USER_MODEL = 'profiles.KarmaUser'
 관련 모델로부터 역으로 링크하기 
 
 - 이용사례: 서드 파티 패키지 제작
-    - PyPI에 올릴 서드 파티 야플리케이션을 제작할 때
+    - PyPI에 올릴 서드 파티 애플리케이션을 제작할 때
     - 사용자당 추가로 저장해야 할 정보가 있을 때
     - 최대한 느슨한 연관된 관계를 원할 때
 - 이용사례: 내부적으로 필요한 경우
     - 우리만의 Django 프로젝트를 작업할 때
     - 각기 다른 필드를 가진 전혀 다른 사용자 타입을 원할 때
-    - 사용자 중 일부가 다름 사용자 타입을 가지는 사용자들과 섞여 있을 때
+    - 사용자 중 일부가 다른 사용자 타입을 가지는 사용자들과 섞여 있을 때
     - 다른 레벨단이 아닌 모델 레벨에서 모든 것을 처리하고 싶을 때
     - 옵션1, 2애서 다룬 커스텀 사용자 모델과 결합하여 이용하고 싶을 때
 
@@ -241,7 +243,7 @@ AttributeError
     - [Chap22.2.3: Option 3: Linking Back From a Related Model]()
 
 
-2. 모든 필드에 User 모델을 넣습니다.
+2. 모든 필드에 기본 User 모델을 넣습니다.
     - User 테이블이 느려질 수 있음
     - 사용하지도 않는 데이터들을 보관하게 될 수도 있음
 

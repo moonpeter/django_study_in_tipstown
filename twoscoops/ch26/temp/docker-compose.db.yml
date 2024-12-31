@@ -1,0 +1,20 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0.17
+    container_name: jjori-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: always
+
+networks:
+  default:
+    external:
+      name: ch26

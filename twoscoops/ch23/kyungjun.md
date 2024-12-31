@@ -75,7 +75,7 @@ cf) 도경님 블로그에서 그대로 인용 -> 책에 인용된 스토리가 
 
 유용한 Django 앱을 제작했다면 다른 프로젝트에서 재사용 할 수 있도록 패키징 할 수 있습니다.
 
-[Advanced tutorial: How to write reusable apps]([docs.djangoproject.com/en/3.2/intro/reusable-apps/](http://docs.djangoproject.com/en/3.2/intro/reusable-apps/))
+[Advanced tutorial: How to write reusable apps](http:/docs.djangoproject.com/en/3.2/intro/reusable-apps/)
 으로 패키징을 시작할 수 있습니다. # 가장 좋은 방법
 
 이 외의 방법
